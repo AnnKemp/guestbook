@@ -1,10 +1,9 @@
 <?php
 declare(strict_types=1);
 ini_set('display_errors', "1"); // om foutmeldingen te tonen
-session_start();
 
 // ----------------------------------------------------------------------CONTROLLER-----------------------------------------------------------------------------------------------
-require ('classes.php');
+require('class_post.php');
 require ('class_guestbook.php');
 
 $file = 'data.json'; // nu in het object
@@ -18,21 +17,6 @@ $objectGuestbook=new Guestbook($array_post, $file);
 $post_values=$objectGuestbook->display_data();
 
 file_put_contents($file, $objectGuestbook->backToJsonFile());  // put the data back on the json file
-
-//read json file from url in php
-//$readJSONFile = file_get_contents($file); // dit werkt! :)
-//print_r($readJSONFile); // display contents
-//$array = substr($readJSONFile,7,2); // remove unwanted characters
-//convert json to array in php
-//$array = json_decode($readJSONFile, TRUE); // makes an array // dit werkt! :)
-//var_dump($array); // print array
-
-
-//array_unshift($array,$array_post);
-// make text from the data before putting it back on the json-file
-//$content=json_encode($array);
-//var_dump($content);  // om te testen
-
 ?>
 <!------------------------------------------------------------------- VIEW ---------------------------------------------------------------------------------------------------->
 <!doctype html>
@@ -73,7 +57,6 @@ Type here your message
          <!--   <span class="error"> <?php //echo $nameErr; ?></span> -->
             <button type="submit" class="btn btn-primary mt-3">Post comment</button>
         </section>
-
 </form>
     </section>
         <?php
