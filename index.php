@@ -3,19 +3,18 @@ declare(strict_types=1);
 ini_set('display_errors', "1"); // om foutmeldingen te tonen
 session_start();
 
-
-// --------CONTROLLER----------------------
+// ----------------------------------------------------------------------CONTROLLER-----------------------------------------------------------------------------------------------
 require ('classes.php');
 require ('class_guestbook.php');
 
 $file = 'data.json'; // nu in het object
 
-$publication = new post($_POST['title'],$_POST['date'],$_POST['message'],$_POST['name']);
+$publication = new Post($_POST['title'],$_POST['date'],$_POST['message'],$_POST['name']);
 $post_values=$publication->display();
 // make the post-array to unshift the new post values into the data-array from the jason file
 $array_post=array("date"=>$post_values[1],"titel"=>$post_values[0],"comment"=>$post_values[2],"name"=>$post_values[3]);
 
-$objectGuestbook=new guestbook($array_post, $file);
+$objectGuestbook=new Guestbook($array_post, $file);
 $post_values=$objectGuestbook->display_data();
 
 file_put_contents($file, $objectGuestbook->backToJsonFile());  // put the data back on the json file
@@ -35,7 +34,7 @@ file_put_contents($file, $objectGuestbook->backToJsonFile());  // put the data b
 //var_dump($content);  // om te testen
 
 ?>
-<!-- VIEW -->
+<!------------------------------------------------------------------- VIEW ---------------------------------------------------------------------------------------------------->
 <!doctype html>
 <html lang="en">
 <head>
@@ -44,25 +43,7 @@ file_put_contents($file, $objectGuestbook->backToJsonFile());  // put the data b
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" type="text/css" rel="stylesheet"/>
-    <style>
-        body{
-            background-color:#EEE;
-        }
-        .error{
-            color:red;
-        }
-        #post{
-            border: solid 1px gray;
-            margin: 10px;
-            padding:10px;
-            width: 100%;
-            background-color: gainsboro;
-        }
-        footer {
-            text-align: center;
-        }
-    </style>
-
+    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Guestbook</title>
 </head>
 <body>
