@@ -1,26 +1,24 @@
 <?php
-class guestbook {
+class Guestbook {
 
-    private $readJSONFile;
-    public $array=[];
     public $content;
+    public $allData;
 
     // this is the setter
     public function __construct($array_post, $file) {
-
+        $this->allData = [];
         //read json file from url in php
-        $this->readJSONFile = file_get_contents($file);
-        //print_r($readJSONFile); // display contents
-        $this->array = substr($this->readJSONFile,7,2); // remove unwanted characters
-        $this->array = json_decode($this->readJSONFile, TRUE); // makes an array
+        $this->allData = file_get_contents(json_decode($file));
+        $this->allData = substr($this->allData,7,2); // remove unwanted characters
+        $this->allData = json_decode($this->allData, TRUE); // this makes an array
 
-        array_unshift($this->array,$array_post);
+        array_unshift($this->allData, $array_post); // add the $_POST data
         // make text from the data before putting it back on the json-file
-        $this->content=json_encode($this->array);
+        $this->content=json_encode($this->allData);
     }
     // this is the getter
     public function display_data() {
-        return $this->array;
+        return $this->allData;
     }
     public function backToJsonFile() {
         return $this->content;

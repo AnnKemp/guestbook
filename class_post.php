@@ -1,6 +1,6 @@
 <?php
 // class post
-class post {
+class Post {  // this class works perfect!
 
     // initializing properties
     private $author;
